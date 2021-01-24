@@ -134,6 +134,9 @@ final class Test
         return self::getLinesToBeCoveredOrUsed($className, $methodName, 'uses');
     }
 
+    /**
+     * @todo Avoid calling this method for methods that do not exist
+     */
     public static function requiresCodeCoverageDataCollection(TestCase $test): bool
     {
         $metadataForClass  = MetadataRegistry::reader()->forClass(get_class($test));
@@ -712,11 +715,20 @@ final class Test
 
     /**
      * @psalm-param class-string $className
+     *
+     * @todo Avoid calling this method for methods that do not exist
      */
     private static function shouldCoversAnnotationBeUsed(string $className, string $methodName): bool
     {
         $metadataForClass  = MetadataRegistry::reader()->forClass($className);
-        $metadataForMethod = MetadataRegistry::reader()->forMethod($className, $methodName);
+        $metadataForMethod = MetadataCollection::fromArray([]);
+
+        if (method_exists($className, $methodName)) {
+            $metadataForMethod = MetadataRegistry::reader()->forMethod(
+                $className,
+                $methodName
+            );
+        }
 
         if ($metadataForMethod->isCoversNothing()->isNotEmpty()) {
             return false;
