@@ -46,6 +46,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Warning;
 use PHPUnit\Runner\Version;
 use PHPUnit\Util\Metadata\Annotation\Registry as AnnotationRegistry;
+use PHPUnit\Util\Metadata\Registry as MetadataRegistry;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
@@ -517,40 +518,40 @@ final class Test
                     continue;
                 }
 
-                $docBlock = AnnotationRegistry::getInstance()->forMethod($className, $method->getName());
+                $metadata = MetadataRegistry::reader()->forMethod($className, $method->getName());
 
                 if ($method->isStatic()) {
-                    if ($docBlock->isHookToBeExecutedBeforeClass()) {
+                    if ($metadata->isBeforeClass()->isNotEmpty()) {
                         array_unshift(
                             self::$hookMethods[$className]['beforeClass'],
                             $method->getName()
                         );
                     }
 
-                    if ($docBlock->isHookToBeExecutedAfterClass()) {
+                    if ($metadata->isAfterClass()->isNotEmpty()) {
                         self::$hookMethods[$className]['afterClass'][] = $method->getName();
                     }
                 }
 
-                if ($docBlock->isToBeExecutedBeforeTest()) {
+                if ($metadata->isBefore()->isNotEmpty()) {
                     array_unshift(
                         self::$hookMethods[$className]['before'],
                         $method->getName()
                     );
                 }
 
-                if ($docBlock->isToBeExecutedAsPreCondition()) {
+                if ($metadata->isPreCondition()->isNotEmpty()) {
                     array_unshift(
                         self::$hookMethods[$className]['preCondition'],
                         $method->getName()
                     );
                 }
 
-                if ($docBlock->isToBeExecutedAsPostCondition()) {
+                if ($metadata->isPostCondition()->isNotEmpty()) {
                     self::$hookMethods[$className]['postCondition'][] = $method->getName();
                 }
 
-                if ($docBlock->isToBeExecutedAfterTest()) {
+                if ($metadata->isAfter()->isNotEmpty()) {
                     self::$hookMethods[$className]['after'][] = $method->getName();
                 }
             }
