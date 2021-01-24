@@ -691,18 +691,12 @@
     </PossiblyUndefinedVariable>
   </file>
   <file src="src/Framework/TestSuite.php">
-    <ArgumentTypeCoercion occurrences="2">
-      <code>$className</code>
-      <code>$className</code>
-    </ArgumentTypeCoercion>
     <DocblockTypeContradiction occurrences="3">
       <code>!is_string($theClass) &amp;&amp; !$theClass instanceof ReflectionClass</code>
       <code>is_string($testClass)</code>
       <code>is_string($testClass) &amp;&amp; class_exists($testClass)</code>
     </DocblockTypeContradiction>
-    <MissingThrowsDocblock occurrences="2">
-      <code>new PhptTestCase($filename)</code>
-    </MissingThrowsDocblock>
+    <MissingThrowsDocblock occurrences="1"/>
     <PossiblyNullArgument occurrences="3">
       <code>$this-&gt;backupGlobals</code>
       <code>$this-&gt;backupStaticAttributes</code>
@@ -719,9 +713,6 @@
       <code>null === $this-&gt;backupStaticAttributes &amp;&amp; is_bool($backupStaticAttributes)</code>
       <code>null === $this-&gt;beStrictAboutChangesToGlobalState &amp;&amp; is_bool($beStrictAboutChangesToGlobalState)</code>
     </RedundantConditionGivenDocblockType>
-    <UnresolvableInclude occurrences="1">
-      <code>include_once $filename</code>
-    </UnresolvableInclude>
   </file>
   <file src="src/Runner/CodeCoverage.php">
     <InvalidNullableReturnType occurrences="2">
@@ -1275,10 +1266,6 @@
       <code>forClassName</code>
       <code>forMethod</code>
     </MissingThrowsDocblock>
-    <PossiblyUndefinedVariable occurrences="2">
-      <code>$version</code>
-      <code>$version</code>
-    </PossiblyUndefinedVariable>
   </file>
   <file src="src/Util/Metadata/Parser/AttributeParser.php">
     <UndefinedMethod occurrences="2">
@@ -1347,13 +1334,9 @@
     <MissingReturnType occurrences="1">
       <code>sanitizeVersionNumber</code>
     </MissingReturnType>
-    <MissingThrowsDocblock occurrences="6">
+    <MissingThrowsDocblock occurrences="2">
       <code>forClassName</code>
-      <code>forMethod</code>
-      <code>forMethod</code>
       <code>getName</code>
-      <code>requirements</code>
-      <code>requirements</code>
     </MissingThrowsDocblock>
   </file>
   <file src="src/Util/TestDox/CliTestDoxPrinter.php">
